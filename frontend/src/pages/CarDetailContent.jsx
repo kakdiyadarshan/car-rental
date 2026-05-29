@@ -78,13 +78,13 @@ const CarDetailContent = () => {
     );
   }
 
-  const thumbs = car?.thumbs?.length > 0 ? [car.image, ...car.thumbs] : [car.image];
+  const thumbs = car?.thumbs?.length > 0 ? [car?.image, ...car.thumbs] : [car?.image];
 
   const specs = [
-    { icon: <RiDashboardLine />, label: "0–100 km/h", val: car.specs?.acceleration || 'N/A' },
-    { icon: <RiSettings3Line />, label: "Transmission", val: car.specs?.transmission || 'N/A' },
-    { icon: <RiUserLine />, label: "Seating", val: car.specs?.seating || 'N/A' },
-    { icon: <RiGasStationLine />, label: "Fuel Type", val: car.specs?.fuel || 'N/A' },
+    { icon: <RiDashboardLine />, label: "0–100 km/h", val: car?.specs?.acceleration || 'N/A' },
+    { icon: <RiSettings3Line />, label: "Transmission", val: car?.specs?.transmission || 'N/A' },
+    { icon: <RiUserLine />, label: "Seating", val: car?.specs?.seating || 'N/A' },
+    { icon: <RiGasStationLine />, label: "Fuel Type", val: car?.specs?.fuel || 'N/A' },
   ];
 
   return (
@@ -92,9 +92,9 @@ const CarDetailContent = () => {
       <Container>
         {/* Header Section */}
         <div className="mb-16 space-y-4 text-center md:text-left animate-fadeIn">
-          <span className="block uppercase text-[0.7rem] tracking-[5px] text-x-primary font-bold">{car.category} Collection</span>
+          <span className="block uppercase text-[0.7rem] tracking-[5px] text-x-primary font-bold">{car?.category} Collection</span>
           <h2 className="font-bebas text-5xl md:text-7xl text-white tracking-widest uppercase leading-none">
-            {car.name} <span className="text-transparent !stroke-white [-webkit-text-stroke:1px_#fff]">{car.brand?.name}</span>
+            {car.name} <span className="text-transparent !stroke-white [-webkit-text-stroke:1px_#fff]">{car?.brand?.name}</span>
           </h2>
         </div>
 
@@ -104,7 +104,7 @@ const CarDetailContent = () => {
             {/* Gallery Wrapper */}
             <div className="space-y-6 animate-slideUp">
               <div className="relative aspect-[16/9] bg-x-surface border border-x-border rounded-[40px] overflow-hidden group">
-                <img src={thumbs[activeImg]} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt={car.name} />
+                <img src={thumbs[activeImg]} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt={car?.name} />
                 <div className="absolute top-8 left-8 flex items-center gap-2 px-4 py-2 bg-x-primary text-white text-[0.7rem] font-bold uppercase tracking-widest rounded-xl shadow-lg">
                   <RiCheckboxCircleLine className="text-lg" /> Verified Listing
                 </div>

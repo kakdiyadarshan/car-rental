@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"); */
 
 @tailwind base;
 @tailwind components;
@@ -153,4 +153,8 @@
   .group:hover .hover-drive-loop {
     animation: driveEffect 0.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
+}
+
+.font-dm {
+  font-family: "Figtree", sans-serif;
 }
