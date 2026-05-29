@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { Container } from 'react-bootstrap'
 import Footer from '../pages/Footer'
-import '../style/d_style.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation, useRegisterMutation, useForgotPasswordMutation, useResetPasswordMutation } from "../slices/usersApiSlice";
@@ -138,7 +137,7 @@ const Register = ({ isModal, closeModal }) => {
     }
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     const rememberedUser = localStorage.getItem('rememberedUser')
     if (rememberedUser) {
       setFormData((prev) => ({ ...prev, email: rememberedUser, rememberMe: true }))
@@ -212,31 +211,20 @@ const Register = ({ isModal, closeModal }) => {
   // Forgot Password: Success View (Link Sent)
   if (formType === 'forgot' && otpSent) {
     return (
-      <>
-        <section className="d_faq_page_section d_registration_page_section" style={{ background: 'var(--x-bg)', minHeight: '100vh', color: 'var(--x-text)' }}>
+      <div className="flex flex-col min-h-screen">
+        <section className="flex-grow flex items-center justify-center bg-x-bg py-20 px-4 text-x-text">
           <Container>
-            <div className="d_cd_form_card" style={{ maxWidth: '500px', margin: '0 auto', borderRadius: '12px', borderTop: '1px solid var(--x-border)', textAlign: 'center' }}>
-              <div className="auth-header" style={{ marginBottom: '30px' }}>
-                <div className="success-icon" style={{ 
-                  width: '80px', 
-                  height: '80px', 
-                  background: 'var(--x-primary)', 
-                  color: '#fff', 
-                  borderRadius: '50%', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center', 
-                  fontSize: '2rem', 
-                  margin: '0 auto 20px' 
-                }}>✓</div>
-                <h2 style={{ color: 'var(--x-text)', fontFamily: 'Bebas Neue', letterSpacing: '2px' }}>Email Sent!</h2>
-                <p style={{ color: 'var(--x-text-muted)' }}>We've sent a password reset link to <strong>{formData.email}</strong>. Please check your email.</p>
+            <div className="max-w-[500px] mx-auto bg-x-surface border border-x-border rounded-xl p-10 text-center shadow-premium relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-1 before:bg-gradient-to-r before:from-transparent before:via-x-primary before:to-transparent">
+              <div className="mb-8">
+                <div className="w-20 h-20 bg-x-primary text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-5 animate-scaleIn">✓</div>
+                <h2 className="text-x-text font-bebas text-4xl tracking-widest mb-2">Email Sent!</h2>
+                <p className="text-x-text-muted text-lg">We've sent a password reset link to <strong>{formData.email}</strong>. Please check your email.</p>
               </div>
               
-              <div className="auth-actions">
+              <div className="flex flex-col gap-4">
                 <button 
                   type="button" 
-                  className="d_cd_btn_book"
+                  className="w-full min-h-[60px] flex items-center justify-center gap-2 bg-x-primary text-white font-bold uppercase tracking-wider text-sm rounded-lg transition-all hover:bg-x-accent hover:text-x-bg hover:shadow-[0_8px_25px_rgba(232,201,122,0.2)]"
                   onClick={() => switchForm('login')}
                 >
                   Back to Login
@@ -246,32 +234,31 @@ const Register = ({ isModal, closeModal }) => {
           </Container>
         </section>
         <Footer />
-      </>
+      </div>
     )
   }
 
   // Login Form
   if (formType === 'login') {
     return (
-      <>
-        <section className="d_faq_page_section d_registration_page_section" style={{ background: 'var(--x-bg)', minHeight: '100vh', color: 'var(--x-text)' }}>
+      <div className="flex flex-col min-h-screen">
+        <section className="flex-grow py-20 px-4 bg-x-bg text-x-text">
           <Container>
-            <div className="d_faq_header" style={{ marginBottom: '60px', textAlign: 'center' }}>
-              <span className="d_fleet_eyebrow">Welcome Back</span>
-              <h1 className="d_fleet_title">Sign <span>In</span></h1>
-              <p style={{ color: 'var(--x-text-muted)', marginTop: '10px' }}>Sign in to your account</p>
+            <div className="mb-16 text-center">
+              <span className="block uppercase text-[0.75rem] tracking-[3px] text-x-primary font-bold mb-2.5">Welcome Back</span>
+              <h1 className="font-bebas text-[3.5rem] text-x-text tracking-[2px] uppercase select-none">Sign <span className="text-transparent !stroke-x-primary [-webkit-text-stroke:1px_#dd6f27]">In</span></h1>
+              <p className="text-x-text-muted mt-2.5 text-lg">Sign in to your account</p>
             </div>
             
-            <div className="d_cd_form_card" style={{ maxWidth: '500px', margin: '0 auto', borderRadius: '12px', borderTop: '1px solid var(--x-border)' }}>
-              <form className="auth-form" onSubmit={handleLoginSubmit}>
-                <div className="d_cd_input_group">
-                  <label htmlFor="email">Email Address</label>
+            <div className="max-w-[500px] mx-auto bg-x-surface border border-x-border rounded-xl p-10 shadow-premium relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-1 before:bg-gradient-to-r before:from-transparent before:via-x-primary before:to-transparent">
+              <form className="flex flex-col gap-5" onSubmit={handleLoginSubmit}>
+                <div className="flex flex-col gap-2.5 mb-6">
+                  <label htmlFor="email" className="text-sm font-semibold text-x-text-muted uppercase tracking-wider">Email Address</label>
                   <input
                     type="email"
                     id="email"
                     name="email"
-                    className="d_cd_input"
-                    style={{ paddingLeft: '18px' }}
+                    className="bg-white/[0.03] border border-x-border rounded-xl p-[15px] pl-[18px] text-x-text transition-all duration-300 focus:bg-white/[0.05] focus:border-x-primary focus:shadow-x-glow focus:-translate-y-[2px] outline-none"
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Enter your email"
@@ -279,23 +266,21 @@ const Register = ({ isModal, closeModal }) => {
                   />
                 </div>
                 
-                <div className="d_cd_input_group">
-                  <label htmlFor="password">Password</label>
-                  <div className="password-input-wrapper">
+                <div className="flex flex-col gap-2.5 mb-6">
+                  <label htmlFor="password" className="text-sm font-semibold text-x-text-muted uppercase tracking-wider">Password</label>
+                  <div className="relative w-full">
                     <input
                       type={showPasswords.login ? "text" : "password"}
                       id="password"
                       name="password"
-                      className="d_cd_input"
-                      style={{ paddingLeft: '18px' }}
+                      className="w-full bg-white/[0.03] border border-x-border rounded-xl p-[15px] pl-[18px] text-x-text transition-all duration-300 focus:bg-white/[0.05] focus:border-x-primary focus:shadow-x-glow focus:-translate-y-[2px] outline-none"
                       value={formData.password}
                       onChange={handleChange}
                       placeholder="Enter your password"
                       required
                     />
                     <span 
-                      className="password-toggle-icon" 
-                      style={{ color: 'var(--x-text-muted)' }}
+                      className="absolute right-[15px] top-1/2 -translate-y-1/2 cursor-pointer text-x-text-muted hover:text-x-primary transition-colors pr-2"
                       onClick={() => togglePasswordVisibility('login')}
                     >
                       {showPasswords.login ? <FaEyeSlash /> : <FaEye />}
@@ -303,64 +288,63 @@ const Register = ({ isModal, closeModal }) => {
                   </div>
                 </div>
                 
-                <div className="form-options">
-                  <label className="checkbox-container">
+                <div className="flex justify-between items-center my-2.5">
+                  <label className="flex items-center cursor-pointer text-[0.9rem] text-x-text-muted select-none">
                     <input
                       type="checkbox"
                       id="rememberMe"
                       name="rememberMe"
+                      className="hidden peer"
                       checked={formData.rememberMe}
                       onChange={handleChange}
                     />
-                    <span className="checkmark"></span>
-                    <p className='mb-0' style={{ color: 'var(--x-text-muted)' }}>Remember me</p>
+                    <span className="w-5 h-5 border-2 border-x-border rounded-[4px] mr-2 relative transition-all bg-x-surface2 peer-checked:bg-x-primary peer-checked:border-x-primary peer-checked:after:content-['\2713'] peer-checked:after:absolute peer-checked:after:text-white peer-checked:after:text-sm peer-checked:after:top-1/2 peer-checked:after:left-1/2 peer-checked:after:-translate-x-1/2 peer-checked:after:-translate-y-1/2"></span>
+                    <p className='mb-0'>Remember me</p>
                   </label>
                   <button 
                     type="button" 
-                    className="link-btn"
-                    style={{ color: 'var(--x-primary)' }}
+                    className="bg-none border-none text-x-primary font-semibold cursor-pointer p-0 m-0 text-sm hover:text-x-accent hover:underline"
                     onClick={() => switchForm('forgot')}
                   >
                     Forgot Password?
                   </button>
                 </div>
                 
-                <button type="submit" className="d_cd_btn_book">Sign In</button>
+                <button type="submit" className="w-full min-h-[60px] flex items-center justify-center gap-2 bg-x-primary text-white font-bold uppercase tracking-wider text-sm rounded-lg transition-all hover:bg-x-accent hover:text-x-bg hover:shadow-[0_8px_25px_rgba(232,201,122,0.2)]">Sign In</button>
               </form>
               
-              <div className="auth-footer" style={{ borderTopColor: 'var(--x-border)' }}>
-                <p style={{ color: 'var(--x-text-muted)' }}>Don't have an account? <button type="button" className="link-btn" style={{ color: 'var(--x-primary)' }} onClick={() => switchForm('register')}>Sign Up</button></p>
+              <div className="text-center mt-8 pt-5 border-t border-x-border">
+                <p className="text-x-text-muted">Don't have an account? <button type="button" className="bg-none border-none text-x-primary font-semibold cursor-pointer p-0 m-0 hover:text-x-accent hover:underline" onClick={() => switchForm('register')}>Sign Up</button></p>
               </div>
             </div>
           </Container>
         </section>
         <Footer />
-      </>
+      </div>
     )
   }
 
   // Forgot Password Form (Email Input)
   if (formType === 'forgot') {
     return (
-      <>
-        <section className="d_faq_page_section d_registration_page_section" style={{ background: 'var(--x-bg)', minHeight: '100vh', color: 'var(--x-text)' }}>
+      <div className="flex flex-col min-h-screen">
+        <section className="flex-grow py-20 px-4 bg-x-bg text-x-text">
           <Container>
-            <div className="d_faq_header" style={{ marginBottom: '60px', textAlign: 'center' }}>
-              <span className="d_fleet_eyebrow">Recovery</span>
-              <h1 className="d_fleet_title">Forgot <span>Password?</span></h1>
-              <p style={{ color: 'var(--x-text-muted)', marginTop: '10px' }}>Enter your email address and we'll send you a link to reset your password.</p>
+            <div className="mb-16 text-center">
+              <span className="block uppercase text-[0.75rem] tracking-[3px] text-x-primary font-bold mb-2.5">Recovery</span>
+              <h1 className="font-bebas text-[3.5rem] text-x-text tracking-[2px] uppercase select-none">Forgot <span className="text-transparent !stroke-x-primary [-webkit-text-stroke:1px_#dd6f27]">Password?</span></h1>
+              <p className="text-x-text-muted mt-2.5 text-lg">Enter your email address and we'll send you a link to reset your password.</p>
             </div>
             
-            <div className="d_cd_form_card" style={{ maxWidth: '500px', margin: '0 auto', borderRadius: '12px', borderTop: '1px solid var(--x-border)' }}>
-              <form className="auth-form" onSubmit={handleForgotSubmit}>
-                <div className="d_cd_input_group">
-                  <label htmlFor="email">Email Address</label>
+            <div className="max-w-[500px] mx-auto bg-x-surface border border-x-border rounded-xl p-10 shadow-premium relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-1 before:bg-gradient-to-r before:from-transparent before:via-x-primary before:to-transparent">
+              <form className="flex flex-col gap-5" onSubmit={handleForgotSubmit}>
+                <div className="flex flex-col gap-2.5 mb-6">
+                  <label htmlFor="email" className="text-sm font-semibold text-x-text-muted uppercase tracking-wider">Email Address</label>
                   <input
                     type="email"
                     id="email"
                     name="email"
-                    className="d_cd_input"
-                    style={{ paddingLeft: '18px' }}
+                    className="bg-white/[0.03] border border-x-border rounded-xl p-[15px] pl-[18px] text-x-text transition-all duration-300 focus:bg-white/[0.05] focus:border-x-primary focus:shadow-x-glow focus:-translate-y-[2px] outline-none"
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Enter your registered email"
@@ -370,46 +354,45 @@ const Register = ({ isModal, closeModal }) => {
                 
                 <button 
                   type="submit" 
-                  className="d_cd_btn_book"
+                  className="w-full min-h-[60px] flex items-center justify-center gap-2 bg-x-primary text-white font-bold uppercase tracking-wider text-sm rounded-lg transition-all hover:bg-x-accent hover:text-x-bg hover:shadow-[0_8px_25px_rgba(232,201,122,0.2)] disabled:opacity-70 disabled:cursor-not-allowed"
                   disabled={isForgotLoading}
                 >
                   {isForgotLoading ? 'Sending...' : 'Send Reset Link'}
                 </button>
               </form>
               
-              <div className="auth-footer" style={{ borderTopColor: 'var(--x-border)' }}>
-                <p style={{ color: 'var(--x-text-muted)' }}>Remember your password? <button type="button" className="link-btn" style={{ color: 'var(--x-primary)' }} onClick={() => switchForm('login')}>Back to Login</button></p>
+              <div className="text-center mt-8 pt-5 border-t border-x-border">
+                <p className="text-x-text-muted">Remember your password? <button type="button" className="bg-none border-none text-x-primary font-semibold cursor-pointer p-0 m-0 hover:text-x-accent hover:underline" onClick={() => switchForm('login')}>Back to Login</button></p>
               </div>
             </div>
           </Container>
         </section>
         <Footer />
-      </>
+      </div>
     )
   }
 
   // Register Form (Default)
   return (
-    <>
-      <section className="d_faq_page_section d_registration_page_section" style={{ background: 'var(--x-bg)', minHeight: '100vh', color: 'var(--x-text)' }}>
+    <div className="flex flex-col min-h-screen">
+      <section className="flex-grow py-20 px-4 bg-x-bg text-x-text">
         <Container>
-          <div className="d_faq_header" style={{ marginBottom: '60px', textAlign: 'center' }}>
-            <span className="d_fleet_eyebrow">Join CarRental</span>
-            <h1 className="d_fleet_title">Create <span>Account</span></h1>
-            <p style={{ color: 'var(--x-text-muted)', marginTop: '10px' }}>Join CarRental to book your dream car</p>
+          <div className="mb-16 text-center">
+            <span className="block uppercase text-[0.75rem] tracking-[3px] text-x-primary font-bold mb-2.5">Join CarRental</span>
+            <h1 className="font-bebas text-[3.5rem] text-x-text tracking-[2px] uppercase select-none">Create <span className="text-transparent !stroke-x-primary [-webkit-text-stroke:1px_#dd6f27]">Account</span></h1>
+            <p className="text-x-text-muted mt-2.5 text-lg">Join CarRental to book your dream car</p>
           </div>
 
-          <div className="d_cd_form_card" style={{ maxWidth: '600px', margin: '0 auto', borderRadius: '12px', borderTop: '1px solid var(--x-border)' }}>
-            <form className="auth-form" onSubmit={handleRegisterSubmit}>
-              <div className="form-row">
-                <div className="d_cd_input_group">
-                  <label htmlFor="firstName">First Name</label>
+          <div className="max-w-[600px] mx-auto bg-x-surface border border-x-border rounded-xl p-10 shadow-premium relative overflow-hidden before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-1 before:bg-gradient-to-r before:from-transparent before:via-x-primary before:to-transparent">
+            <form className="flex flex-col gap-5" onSubmit={handleRegisterSubmit}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex flex-col gap-2.5 mb-2">
+                  <label htmlFor="firstName" className="text-sm font-semibold text-x-text-muted uppercase tracking-wider">First Name</label>
                   <input
                     type="text"
                     id="firstName"
                     name="firstName"
-                    className="d_cd_input"
-                    style={{ paddingLeft: '18px' }}
+                    className="bg-white/[0.03] border border-x-border rounded-xl p-[15px] pl-[18px] text-x-text transition-all duration-300 focus:bg-white/[0.05] focus:border-x-primary focus:shadow-x-glow focus:-translate-y-[2px] outline-none"
                     value={formData.firstName}
                     onChange={handleChange}
                     placeholder="Enter your first name"
@@ -419,14 +402,13 @@ const Register = ({ isModal, closeModal }) => {
                   />
                 </div>
                 
-                <div className="d_cd_input_group">
-                  <label htmlFor="lastName">Last Name</label>
+                <div className="flex flex-col gap-2.5 mb-2">
+                  <label htmlFor="lastName" className="text-sm font-semibold text-x-text-muted uppercase tracking-wider">Last Name</label>
                   <input
                     type="text"
                     id="lastName"
                     name="lastName"
-                    className="d_cd_input"
-                    style={{ paddingLeft: '18px' }}
+                    className="bg-white/[0.03] border border-x-border rounded-xl p-[15px] pl-[18px] text-x-text transition-all duration-300 focus:bg-white/[0.05] focus:border-x-primary focus:shadow-x-glow focus:-translate-y-[2px] outline-none"
                     value={formData.lastName}
                     onChange={handleChange}
                     placeholder="Enter your last name"
@@ -437,14 +419,13 @@ const Register = ({ isModal, closeModal }) => {
                 </div>
               </div>
               
-              <div className="d_cd_input_group">
-                <label htmlFor="email">Email Address</label>
+              <div className="flex flex-col gap-2.5 mb-2">
+                <label htmlFor="email" className="text-sm font-semibold text-x-text-muted uppercase tracking-wider">Email Address</label>
                 <input
                   type="email"
                   id="email"
                   name="email"
-                  className="d_cd_input"
-                  style={{ paddingLeft: '18px' }}
+                  className="bg-white/[0.03] border border-x-border rounded-xl p-[15px] pl-[18px] text-x-text transition-all duration-300 focus:bg-white/[0.05] focus:border-x-primary focus:shadow-x-glow focus:-translate-y-[2px] outline-none"
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
@@ -452,14 +433,13 @@ const Register = ({ isModal, closeModal }) => {
                 />
               </div>
               
-              <div className="d_cd_input_group">
-                <label htmlFor="phone">Phone Number</label>
+              <div className="flex flex-col gap-2.5 mb-2">
+                <label htmlFor="phone" className="text-sm font-semibold text-x-text-muted uppercase tracking-wider">Phone Number</label>
                 <input
                   type="tel"
                   id="phone"
                   name="phone"
-                  className="d_cd_input"
-                  style={{ paddingLeft: '18px' }}
+                  className="bg-white/[0.03] border border-x-border rounded-xl p-[15px] pl-[18px] text-x-text transition-all duration-300 focus:bg-white/[0.05] focus:border-x-primary focus:shadow-x-glow focus:-translate-y-[2px] outline-none"
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="Enter your phone number (10 digits)"
@@ -469,14 +449,13 @@ const Register = ({ isModal, closeModal }) => {
                 />
               </div>
               
-              <div className="d_cd_input_group">
-                <label htmlFor="drivingLicense">Driving License Number</label>
+              <div className="flex flex-col gap-2.5 mb-2">
+                <label htmlFor="drivingLicense" className="text-sm font-semibold text-x-text-muted uppercase tracking-wider">Driving License Number</label>
                 <input
                   type="text"
                   id="drivingLicense"
                   name="drivingLicense"
-                  className="d_cd_input"
-                  style={{ paddingLeft: '18px' }}
+                  className="bg-white/[0.03] border border-x-border rounded-xl p-[15px] pl-[18px] text-x-text transition-all duration-300 focus:bg-white/[0.05] focus:border-x-primary focus:shadow-x-glow focus:-translate-y-[2px] outline-none"
                   value={formData.drivingLicense}
                   onChange={handleChange}
                   placeholder="Enter your driving license number"
@@ -486,15 +465,14 @@ const Register = ({ isModal, closeModal }) => {
                 />
               </div>
               
-              <div className="d_cd_input_group">
-                <label htmlFor="password">Password</label>
-                <div className="password-input-wrapper">
+              <div className="flex flex-col gap-2.5 mb-2">
+                <label htmlFor="password" className="text-sm font-semibold text-x-text-muted uppercase tracking-wider">Password</label>
+                <div className="relative w-full">
                   <input
                     type={showPasswords.register ? "text" : "password"}
                     id="password"
                     name="password"
-                    className="d_cd_input"
-                    style={{ paddingLeft: '18px' }}
+                    className="w-full bg-white/[0.03] border border-x-border rounded-xl p-[15px] pl-[18px] text-x-text transition-all duration-300 focus:bg-white/[0.05] focus:border-x-primary focus:shadow-x-glow focus:-translate-y-[2px] outline-none"
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Create a password (min 6 characters)"
@@ -502,8 +480,7 @@ const Register = ({ isModal, closeModal }) => {
                     minLength="6"
                   />
                   <span 
-                    className="password-toggle-icon" 
-                    style={{ color: 'var(--x-text-muted)' }}
+                    className="absolute right-[15px] top-1/2 -translate-y-1/2 cursor-pointer text-x-text-muted hover:text-x-primary transition-colors pr-2"
                     onClick={() => togglePasswordVisibility('register')}
                   >
                     {showPasswords.register ? <FaEyeSlash /> : <FaEye />}
@@ -511,23 +488,21 @@ const Register = ({ isModal, closeModal }) => {
                 </div>
               </div>
               
-              <div className="d_cd_input_group">
-                <label htmlFor="confirmPassword">Confirm Password</label>
-                <div className="password-input-wrapper">
+              <div className="flex flex-col gap-2.5 mb-2">
+                <label htmlFor="confirmPassword" className="text-sm font-semibold text-x-text-muted uppercase tracking-wider">Confirm Password</label>
+                <div className="relative w-full">
                   <input
                     type={showPasswords.confirmRegister ? "text" : "password"}
                     id="confirmPassword"
                     name="confirmPassword"
-                    className="d_cd_input"
-                    style={{ paddingLeft: '18px' }}
+                    className="w-full bg-white/[0.03] border border-x-border rounded-xl p-[15px] pl-[18px] text-x-text transition-all duration-300 focus:bg-white/[0.05] focus:border-x-primary focus:shadow-x-glow focus:-translate-y-[2px] outline-none"
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     placeholder="Confirm your password"
                     required
                   />
                   <span 
-                    className="password-toggle-icon" 
-                    style={{ color: 'var(--x-text-muted)' }}
+                    className="absolute right-[15px] top-1/2 -translate-y-1/2 cursor-pointer text-x-text-muted hover:text-x-primary transition-colors pr-2"
                     onClick={() => togglePasswordVisibility('confirmRegister')}
                   >
                     {showPasswords.confirmRegister ? <FaEyeSlash /> : <FaEye />}
@@ -535,32 +510,34 @@ const Register = ({ isModal, closeModal }) => {
                 </div>
               </div>
               
-              <div className="form-options">
-                <label className="checkbox-container">
+              <div className="flex justify-between items-center my-2.5">
+                <label className="flex items-center cursor-pointer text-[0.9rem] text-x-text-muted select-none">
                   <input
                     type="checkbox"
                     name="agreeToTerms"
+                    className="hidden peer"
                     checked={formData.agreeToTerms}
                     onChange={handleChange}
                     required
                   />
-                  <span className="checkmark"></span>
-                  <p className='mb-0' style={{ color: 'var(--x-text-muted)' }}>I agree to the <a href="#" style={{ color: 'var(--x-primary)' }}>Terms of Service</a> and <a href="#" style={{ color: 'var(--x-primary)' }}>Privacy Policy</a></p>
+                  <span className="w-5 h-5 border-2 border-x-border rounded-[4px] mr-2 relative transition-all bg-x-surface2 peer-checked:bg-x-primary peer-checked:border-x-primary peer-checked:after:content-['\2713'] peer-checked:after:absolute peer-checked:after:text-white peer-checked:after:text-sm peer-checked:after:top-1/2 peer-checked:after:left-1/2 peer-checked:after:-translate-x-1/2 peer-checked:after:-translate-y-1/2"></span>
+                  <p className='mb-0'>I agree to the <a href="#" className="text-x-primary hover:text-x-accent hover:underline">Terms of Service</a> and <a href="#" className="text-x-primary hover:text-x-accent hover:underline">Privacy Policy</a></p>
                 </label>
               </div>
               
-              <button type="submit" className="d_cd_btn_book">Create Account</button>
+              <button type="submit" className="w-full min-h-[60px] flex items-center justify-center gap-2 bg-x-primary text-white font-bold uppercase tracking-wider text-sm rounded-lg transition-all hover:bg-x-accent hover:text-x-bg hover:shadow-[0_8px_25px_rgba(232,201,122,0.2)]">Create Account</button>
             </form>
             
-            <div className="auth-footer" style={{ borderTopColor: 'var(--x-border)' }}>
-              <p style={{ color: 'var(--x-text-muted)' }}>Already have an account? <button type="button" className="link-btn" style={{ color: 'var(--x-primary)' }} onClick={() => switchForm('login')}>Sign In</button></p>
+            <div className="text-center mt-8 pt-5 border-t border-x-border">
+              <p className="text-x-text-muted">Already have an account? <button type="button" className="bg-none border-none text-x-primary font-semibold cursor-pointer p-0 m-0 hover:text-x-accent hover:underline" onClick={() => switchForm('login')}>Sign In</button></p>
             </div>
           </div>
         </Container>
       </section>
       <Footer />
-    </>
+    </div>
   )
 }
 
 export default Register
+

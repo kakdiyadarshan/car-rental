@@ -1,8 +1,6 @@
 import React from 'react';
 import { Container, Accordion } from 'react-bootstrap';
-import Header from '../components/Header';
 import Footer from './Footer';
-import '../style/d_style.css';
 
 const FAQ = () => {
   const FAQS = [
@@ -38,25 +36,31 @@ const FAQ = () => {
 
   return (
     <>
-      <section className="d_faq_page_section d_section_padding" style={{ background: 'var(--x-bg)', minHeight: '100vh', color: 'var(--x-text)' }}>
+      <section className="py-24 bg-x-bg min-h-screen">
         <Container>
           {/* Header */}
-          <div className="d_fleet_header d_mb_responsive" style={{ textAlign: 'center' }}>
-            <span className="d_fleet_eyebrow">Everything you need to know</span>
-            <h1 className="d_fleet_title d_responsive_title">Frequently Asked <span>Questions</span></h1>
-            <p className="d_responsive_subtitle" style={{ color: 'var(--x-text-muted)', maxWidth: '650px', margin: '20px auto 0', lineHeight: '1.8' }}>
+          <div className="mb-20 text-center space-y-6 animate-fadeIn">
+            <span className="block uppercase text-[0.7rem] tracking-[5px] text-x-primary font-bold">Everything you need to know</span>
+            <h1 className="font-bebas text-5xl md:text-7xl text-white tracking-widest uppercase leading-none">
+              Frequently Asked <span className="text-transparent !stroke-white [-webkit-text-stroke:1px_#fff]">Questions</span>
+            </h1>
+            <p className="text-x-text-muted max-w-2xl mx-auto text-lg leading-relaxed font-dm">
               Got questions? We've got answers. Explore our knowledge base for everything from booking details to rental policies.
             </p>
           </div>
           
-          <div className="d_faq_content" style={{ maxWidth: '900px', margin: '0 auto' }}>
-            <Accordion defaultActiveKey="0" className="d_custom_accordion">
+          <div className="max-w-4xl mx-auto animate-slideUp">
+            <Accordion defaultActiveKey="0" className="space-y-6">
               {FAQS.map((faq, index) => (
-                <Accordion.Item eventKey={index.toString()} key={index} style={{ background: 'var(--x-surface)', border: '1px solid var(--x-border)', marginBottom: '15px', borderRadius: '12px', overflow: 'hidden' }}>
-                  <Accordion.Header style={{ background: 'transparent' }}>
-                    <span style={{ fontFamily: 'Bebas Neue', letterSpacing: '1px', fontSize: '1.2rem', color: 'var(--x-text)' }}>{faq.q}</span>
+                <Accordion.Item 
+                    eventKey={index.toString()} 
+                    key={index} 
+                    className="!bg-x-surface border !border-x-border !rounded-[32px] overflow-hidden group/item transition-all duration-500 hover:border-x-primary/40"
+                >
+                  <Accordion.Header className="group [&>.accordion-button]:!bg-transparent [&>.accordion-button]:!text-white [&>.accordion-button]:!shadow-none [&>.accordion-button]:!p-8 [&>.accordion-button]:after:!invert [&>.accordion-button:not(.collapsed)]:!border-b [&>.accordion-button:not(.collapsed)]:!border-white/5">
+                    <span className="font-bebas text-2xl tracking-[2px] uppercase group-hover/item:text-x-primary transition-colors">{faq.q}</span>
                   </Accordion.Header>
-                  <Accordion.Body style={{ background: 'var(--x-surface2)', color: 'var(--x-text-muted)', lineHeight: '1.8' }}>
+                  <Accordion.Body className="!bg-white/[0.01] !text-x-text-muted !p-10 !leading-relaxed font-dm text-lg opacity-80">
                     {faq.a}
                   </Accordion.Body>
                 </Accordion.Item>
@@ -71,3 +75,4 @@ const FAQ = () => {
 };
 
 export default FAQ;
+

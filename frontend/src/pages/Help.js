@@ -9,7 +9,6 @@ import {
 import Header from '../components/Header';
 import Footer from './Footer';
 import CTA from './CTA';
-import '../style/d_style.css';
 
 const Help = () => {
   const FAQS = [
@@ -32,21 +31,25 @@ const Help = () => {
   ];
 
   return (
-    <>
-      {/* <Header /> */}
-      <section className="d_help_page_section pb-0" style={{ background: 'var(--x-bg)', color: 'var(--x-text)' }}>
+    <div className="min-h-screen bg-x-bg text-x-text font-dm">
+      <section className="pt-32 pb-0">
         {/* Header */}
-        <div className="d_fleet_header" style={{ textAlign: 'center' }}>
-          <span className="d_fleet_eyebrow">Support Center</span>
-          <h1 className="d_fleet_title">How Can We <span>Help You?</span></h1>
-          <p className="d_help_subtitle" style={{ color: 'var(--x-text-muted)', maxWidth: '700px', margin: '20px auto 0', fontSize: '1.1rem' }}>
+        <div className="mb-20 text-center animate-fadeIn">
+          <span className="block uppercase text-[0.8rem] tracking-[5px] text-x-primary font-bold mb-4">Support Center</span>
+          <h1 className="font-bebas text-5xl md:text-7xl text-white tracking-[2px] uppercase">
+            How Can We <span className="text-x-primary">Help You?</span>
+          </h1>
+          <div className="w-20 h-1 bg-x-primary mx-auto my-6 rounded-full overflow-hidden">
+                <div className="w-full h-full bg-white/20 animate-[ticker_2s_linear_infinite]" />
+            </div>
+          <p className="text-x-text-muted max-w-2xl mx-auto text-lg leading-relaxed">
             Find answers to common questions or reach out to our 24/7 concierge team.
           </p>
         </div>
 
         <Container>
           {/* Support Channels */}
-          <Row className="g-3 g-md-4 mb-4 mb-md-5">
+          <Row className="g-4 mb-24">
             {[
               {
                 icon: <RiPhoneLine />,
@@ -71,65 +74,105 @@ const Help = () => {
               }
             ].map((item, i) => (
               <Col md={4} key={i}>
-                <div className="d_wcu_feature_card d_help_channel_card" style={{ textAlign: 'center', height: '100%' }}>
-
-                  <div style={{ color: 'var(--x-primary)', fontSize: '2.5rem', marginBottom: '20px', marginTop: '-20px' }}>
+                <div className="group h-full bg-x-surface border border-x-border p-10 rounded-[32px] text-center hover:border-x-primary/40 hover:-translate-y-2 transition-all duration-300 shadow-2xl overflow-hidden relative">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-x-primary/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
+                  
+                  <div className="w-20 h-20 bg-x-primary/10 rounded-2xl flex items-center justify-center text-x-primary text-4xl mx-auto mb-8 transition-transform group-hover:scale-110">
                     {item.icon}
                   </div>
 
-                  <h3 style={{ fontFamily: 'Bebas Neue', letterSpacing: '1px', fontSize: '1.5rem', marginBottom: '10px' }}>
+                  <h3 className="font-bebas text-2xl tracking-widest mb-3 uppercase text-white">
                     {item.title}
                   </h3>
 
-                  <p style={{ color: 'var(--x-text)', fontWeight: 600, marginBottom: '20px' }}>
+                  <p className="text-x-text font-semibold mb-8">
                     {item.detail}
                   </p>
 
                   <button
-                    className="d_car_btn_outline"
-                    style={{ margin: '0 auto' }}
+                    className="w-full py-4 rounded-xl border border-x-primary/30 text-x-primary font-bold uppercase tracking-widest text-xs hover:bg-x-primary hover:text-white transition-all shadow-lg hover:shadow-x-primary/20"
                     onClick={item.onClick}
                   >
                     {item.action}
                   </button>
-
                 </div>
               </Col>
             ))}
           </Row>
 
           {/* FAQs Section */}
-          <Row className="g-4 g-lg-5 align-items-center mt-3 mt-md-5 pt-3 mb-4 mb-lg-0">
-            <Col lg={6}>
-              <div className="d_help_faq_content">
-                <span className="d_fleet_eyebrow" style={{ textAlign: 'left' }}>Knowledge Base</span>
-                <h2 className="d_fleet_title d_help_faq_title" style={{ fontSize: '2.5rem', textAlign: 'left' }}>Common <span>Questions</span></h2>
-                <Accordion defaultActiveKey="0" className="d_custom_accordion">
-                  {FAQS.map((faq, index) => (
-                    <Accordion.Item eventKey={index.toString()} key={index}>
-                      <Accordion.Header>{faq.q}</Accordion.Header>
-                      <Accordion.Body>{faq.a}</Accordion.Body>
-                    </Accordion.Item>
-                  ))}
-                </Accordion>
+          <div className="flex flex-col lg:flex-row items-center gap-16 mb-24 py-16 border-t border-white/[0.05]">
+            <div className="w-full lg:w-1/2 space-y-8 animate-slideUp">
+              <div>
+                <span className="block uppercase text-[0.7rem] tracking-[3px] text-x-primary font-bold mb-3">Knowledge Base</span>
+                <h2 className="font-bebas text-4xl md:text-5xl text-white tracking-widest uppercase leading-tight">Common <span className="text-x-primary">Questions</span></h2>
               </div>
-            </Col>
-            <Col lg={6}>
-              <div className="d_help_img_box" style={{ padding: '20px', background: 'var(--x-surface)', borderRadius: '20px', border: '1px solid var(--x-border)' }}>
-                <img
-                  src="https://demo.awaikenthemes.com/novaride/dark/wp-content/uploads/2024/08/post-1.jpg"
-                  alt="Customer Support"
-                  style={{ width: '100%', borderRadius: '12px' }}
-                />
+              
+              <Accordion defaultActiveKey="0" className="space-y-4 !border-none">
+                {FAQS.map((faq, index) => (
+                  <Accordion.Item 
+                    eventKey={index.toString()} 
+                    key={index} 
+                    className="!bg-white/[0.03] !border !border-white/[0.05] !rounded-2xl overflow-hidden"
+                  >
+                    <Accordion.Header className="custom-accordion-header">{faq.q}</Accordion.Header>
+                    <Accordion.Body className="text-x-text-muted leading-relaxed font-dm text-base">
+                      {faq.a}
+                    </Accordion.Body>
+                  </Accordion.Item>
+                ))}
+              </Accordion>
+            </div>
+            <div className="w-full lg:w-1/2 animate-slideUp [animation-delay:200ms]">
+              <div className="relative group">
+                <div className="relative z-10 p-4 bg-x-surface border border-x-border rounded-[32px] overflow-hidden shadow-premium">
+                    <img
+                        src="https://demo.awaikenthemes.com/novaride/dark/wp-content/uploads/2024/08/post-1.jpg"
+                        alt="Customer Support"
+                        className="w-full h-full object-cover rounded-2xl transition-transform duration-700 group-hover:scale-105"
+                    />
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-full h-full border border-x-primary/20 rounded-[32px] -z-10 group-hover:translate-x-3 group-hover:translate-y-3 transition-transform" />
               </div>
-            </Col>
-          </Row>
+            </div>
+          </div>
         </Container>
-        <CTA />
       </section>
+      <CTA />
       <Footer />
-    </>
+
+      <style>
+        {`
+          .custom-accordion-header .accordion-button {
+            background-color: transparent !important;
+            color: white !important;
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            padding: 24px;
+            box-shadow: none !important;
+            border: none !important;
+          }
+          .custom-accordion-header .accordion-button:not(.collapsed) {
+            color: var(--x-primary) !important;
+            background-color: rgba(221, 111, 39, 0.05) !important;
+          }
+          .custom-accordion-header .accordion-button::after {
+            filter: invert(1) brightness(2);
+          }
+          .accordion-item {
+            margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,0.05) !important;
+            border-radius: 16px !important;
+          }
+          .accordion-button:focus {
+            box-shadow: none;
+            border-color: rgba(221, 111, 39, 0.5);
+          }
+        `}
+      </style>
+    </div>
   );
 };
 
 export default Help;
+
