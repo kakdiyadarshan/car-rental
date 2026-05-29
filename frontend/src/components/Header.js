@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../slices/authSlice';
@@ -37,6 +36,7 @@ const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchVal,  setSearchVal]  = useState('');
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const searchInputRef = useRef(null);
 
   const suggestions = React.useMemo(() => {
@@ -59,9 +59,10 @@ const Header = () => {
     }
   }, [searchOpen]);
 
-  /* sync active nav with URL */
+  /* sync active nav and close mobile menu on URL change */
   useEffect(() => {
     setActiveNav(location.pathname);
+    setMobileMenuOpen(false);
   }, [location.pathname]);
 
   /* scroll shadow */
@@ -184,83 +185,30 @@ const Header = () => {
         </div>
       </div>
 
-      <Navbar expand="lg" className="py-3 lg:py-4">
-        <Container fluid="xl">
+      {/* ── Main Navbar ── */}
+      <div className="py-3 lg:py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 lg:h-16">
 
-          {/* ── Logo ── */}
-          <Navbar.Brand as={Link} to="/" className="flex items-center no-underline gap-0 shrink-0 p-0 hover:opacity-90 transition-opacity">
-            <div className="flex items-center justify-center w-10 min-w-[40px] h-10 bg-x-primary [clip-path:polygon(12%_0%,88%_0%,100%_12%,100%_88%,88%_100%,12%_100%,0%_88%,0%_12%)] mr-2.5 transition-all duration-500 hover:bg-x-accent">
-              <RiCarLine size={20} color="#fff" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-bebas text-[1.6rem] tracking-[3px] text-x-text leading-none whitespace-nowrap uppercase">
-                Auto<span className="text-x-primary">X</span>
-              </span>
-              <span className="text-[0.55rem] tracking-[3.5px] uppercase text-x-text-muted mt-0.5 whitespace-nowrap font-medium">Premium Rentals</span>
-            </div>
-          </Navbar.Brand>
-
-          {/* ── Mobile right side ── */}
-          <div className="flex items-center lg:hidden gap-2">
-            <button 
-              className="w-9 h-9 rounded-lg border border-x-border flex items-center justify-center text-x-text-muted hover:border-x-primary hover:text-x-primary transition-all" 
-              onClick={toggleSearch} 
-              aria-label="Search"
-            >
-              <RiSearchLine size={18} />
-            </button>
-
-            {/* Mobile User Icon with Dropdown */}
-            <div className="relative user-dropdown-container">
-              <button 
-                className={`w-9 h-9 rounded-lg border border-x-border flex items-center justify-center transition-all ${
-                  userDropdownOpen ? 'border-x-primary text-x-primary bg-x-primary/10' : 'text-x-text-muted hover:border-x-primary hover:text-x-primary'
-                }`} 
-                onClick={toggleUserDropdown}
-              >
-                <RiUserLine size={18} />
-              </button>
-              {userDropdownOpen && (
-                <div className="absolute top-full right-0 mt-3 w-64 bg-x-surface border border-x-border rounded-2xl p-2.5 shadow-2xl z-[1000] animate-fadeInScale">
-                  {!userInfo ? (
-                    <Link to="/Register" className="flex items-center gap-3 px-4 py-3 text-x-text-muted hover:text-x-primary hover:bg-white/5 rounded-xl transition-all font-medium" onClick={() => setUserDropdownOpen(false)}>
-                      <RiLoginBoxLine size={20} /> Register / Login
-                    </Link>
-                  ) : (
-                    <>
-                      <div className="px-4 py-3 mb-1 border-b border-white/[0.05]">
-                        <span className="block text-x-text font-bold text-sm truncate">{userInfo.firstname} {userInfo.lastname}</span>
-                        <span className="block text-x-text-muted text-[10px] truncate">{userInfo.email}</span>
-                      </div>
-                      <Link to="/profile" className="flex items-center gap-3 px-4 py-3 text-x-text-muted hover:text-x-primary hover:bg-white/5 rounded-xl transition-all font-medium" onClick={() => setUserDropdownOpen(false)}>
-                        <RiUserSettingsLine size={20} /> Profile
-                      </Link>
-                      <div className="h-px bg-white/[0.05] my-1" />
-                      <button className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-all font-medium" onClick={logoutHandler}>
-                        <RiLoginBoxLine size={20} /> Logout
-                      </button>
-                    </>
-                  )}
-                </div>
-              )}
-            </div>
-
-            <Navbar.Toggle aria-controls="autox-nav" className="border-none p-0 !shadow-none outline-none group">
-              <div className="w-9 h-9 rounded-lg border border-x-border flex items-center justify-center text-x-text group-aria-expanded:bg-x-primary group-aria-expanded:border-x-primary">
-                <RiMenuFoldLine size={22} />
+            {/* ── Logo ── */}
+            <Link to="/" className="flex items-center no-underline gap-0 shrink-0 p-0 hover:opacity-90 transition-opacity">
+              <div className="flex items-center justify-center w-10 min-w-[40px] h-10 bg-x-primary [clip-path:polygon(12%_0%,88%_0%,100%_12%,100%_88%,88%_100%,12%_100%,0%_88%,0%_12%)] mr-2.5 transition-all duration-500 hover:bg-x-accent">
+                <RiCarLine size={20} color="#fff" />
               </div>
-            </Navbar.Toggle>
-          </div>
+              <div className="flex flex-col">
+                <span className="font-bebas text-[1.6rem] tracking-[3px] text-x-text leading-none whitespace-nowrap uppercase">
+                  Auto<span className="text-x-primary">X</span>
+                </span>
+                <span className="text-[0.55rem] tracking-[3.5px] uppercase text-x-text-muted mt-0.5 whitespace-nowrap font-medium">Premium Rentals</span>
+              </div>
+            </Link>
 
-          <Navbar.Collapse id="autox-nav">
-
-            {/* ── Nav ── */}
-            <Nav className="mx-auto flex items-center gap-0.5 lg:gap-1 py-4 lg:py-0">
+            {/* ── Desktop Navigation ── */}
+            <nav className="hidden lg:flex items-center gap-0.5 lg:gap-1">
               {NAV_ITEMS.map((item, i) => (
                 <React.Fragment key={item.href}>
-                  {i === 3 && <div className="hidden lg:block w-px h-[18px] bg-x-border mx-1.5" />}
-                  <Nav.Link
-                    as={Link}
+                  {i === 3 && <div className="w-px h-[18px] bg-x-border mx-1.5" />}
+                  <Link
                     to={item.href}
                     className={`relative px-4 py-2 text-[0.8rem] tracking-wider uppercase font-semibold transition-all duration-300 rounded-lg hover:bg-white/5 active:scale-95 ${
                       activeNav === item.href ? 'text-x-primary' : 'text-x-text-muted hover:text-x-text'
@@ -268,18 +216,17 @@ const Header = () => {
                   >
                     {item.label}
                     {activeNav === item.href && (
-                      <span className="absolute bottom-1 left-1.2 right-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-x-primary" />
+                      <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-x-primary" />
                     )}
-                  </Nav.Link>
+                  </Link>
                 </React.Fragment>
               ))}
-            </Nav>
+            </nav>
 
-            {/* ── Auth Cluster ── */}
-            <div className="flex flex-col lg:flex-row items-stretch lg:items-center gap-3 lg:gap-2.5">
-
+            {/* ── Desktop Auth/Action Cluster ── */}
+            <div className="hidden lg:flex items-center gap-2.5">
               <button
-                className="hidden lg:flex w-[38px] h-[38px] rounded-xl border border-x-border items-center justify-center text-x-text-muted hover:border-x-primary-active hover:text-x-primary hover:bg-x-primary-glow transition-all"
+                className="w-[38px] h-[38px] rounded-xl border border-x-border flex items-center justify-center text-x-text-muted hover:border-x-primary-active hover:text-x-primary hover:bg-x-primary-glow transition-all"
                 title="Search"
                 aria-label="Search"
                 onClick={toggleSearch}
@@ -288,7 +235,7 @@ const Header = () => {
               </button>
 
               {/* Desktop User Dropdown */}
-              <div className="hidden lg:block relative user-dropdown-container">
+              <div className="relative user-dropdown-container">
                 <button 
                   className={`w-[38px] h-[38px] rounded-xl border border-x-border flex items-center justify-center transition-all ${
                     userDropdownOpen ? 'border-x-primary text-x-primary bg-x-primary-glow' : 'text-x-text-muted hover:border-x-primary-active hover:text-x-primary hover:bg-x-primary-glow'
@@ -313,9 +260,6 @@ const Header = () => {
                           <Link to="/profile" className="flex items-center gap-3 px-3.5 py-3 text-x-text-muted hover:text-x-primary hover:bg-x-primary-glow rounded-lg transition-all font-semibold uppercase tracking-wider text-[10px]" onClick={() => setUserDropdownOpen(false)}>
                             <RiUserSettingsLine size={18} className="text-x-primary" /> User Profile
                           </Link>
-                          {/* <Link to="/bookings" className="flex items-center gap-3 px-3.5 py-3 text-x-text-muted hover:text-x-primary hover:bg-x-primary-glow rounded-lg transition-all font-semibold uppercase tracking-wider text-[10px]" onClick={() => setUserDropdownOpen(false)}>
-                            <RiHistoryLine size={18} className="text-x-primary" /> Rent History
-                          </Link> */}
                           <div className="h-px bg-white/[0.05] my-1" />
                           <button className="w-full flex items-center gap-3 px-3.5 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-all font-semibold uppercase tracking-wider text-[10px]" onClick={logoutHandler}>
                             <RiLoginBoxLine size={18} /> Logout Session
@@ -331,13 +275,105 @@ const Header = () => {
                 Rent A Car
                 <RiArrowRightLine size={16} />
               </Link>
-
             </div>
 
-          </Navbar.Collapse>
+            {/* ── Mobile Right Actions (Search, Profile Dropdown, Menu Burger) ── */}
+            <div className="flex items-center lg:hidden gap-2">
+              <button 
+                className="w-9 h-9 rounded-lg border border-x-border flex items-center justify-center text-x-text-muted hover:border-x-primary hover:text-x-primary transition-all" 
+                onClick={toggleSearch} 
+                aria-label="Search"
+              >
+                <RiSearchLine size={18} />
+              </button>
 
-        </Container>
-      </Navbar>
+              {/* Mobile User Icon Dropdown */}
+              <div className="relative user-dropdown-container">
+                <button 
+                  className={`w-9 h-9 rounded-lg border border-x-border flex items-center justify-center transition-all ${
+                    userDropdownOpen ? 'border-x-primary text-x-primary bg-x-primary/10' : 'text-x-text-muted hover:border-x-primary hover:text-x-primary'
+                  }`} 
+                  onClick={toggleUserDropdown}
+                >
+                  <RiUserLine size={18} />
+                </button>
+                {userDropdownOpen && (
+                  <div className="absolute top-full right-0 mt-3 w-64 bg-x-surface border border-x-border rounded-2xl p-2.5 shadow-2xl z-[1000] animate-fadeInScale">
+                    {!userInfo ? (
+                      <Link to="/Register" className="flex items-center gap-3 px-4 py-3 text-x-text-muted hover:text-x-primary hover:bg-white/5 rounded-xl transition-all font-medium" onClick={() => setUserDropdownOpen(false)}>
+                        <RiLoginBoxLine size={20} /> Register / Login
+                      </Link>
+                    ) : (
+                      <>
+                        <div className="px-4 py-3 mb-1 border-b border-white/[0.05]">
+                          <span className="block text-x-text font-bold text-sm truncate">{userInfo.firstname} {userInfo.lastname}</span>
+                          <span className="block text-x-text-muted text-[10px] truncate">{userInfo.email}</span>
+                        </div>
+                        <Link to="/profile" className="flex items-center gap-3 px-4 py-3 text-x-text-muted hover:text-x-primary hover:bg-white/5 rounded-xl transition-all font-medium" onClick={() => setUserDropdownOpen(false)}>
+                          <RiUserSettingsLine size={20} /> Profile
+                        </Link>
+                        <div className="h-px bg-white/[0.05] my-1" />
+                        <button className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-xl transition-all font-medium" onClick={logoutHandler}>
+                          <RiLoginBoxLine size={20} /> Logout
+                        </button>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Mobile Burger Menu Button */}
+              <button 
+                className={`w-9 h-9 rounded-lg border border-x-border flex items-center justify-center text-x-text transition-all ${
+                  mobileMenuOpen ? 'bg-x-primary border-x-primary text-white' : 'hover:border-x-primary hover:text-x-primary'
+                }`}
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle Navigation Menu"
+              >
+                {mobileMenuOpen ? <RiCloseLine size={22} /> : <RiMenuFoldLine size={22} />}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {/* ── Mobile Dropdown Navigation Drawer ── */}
+      <div 
+        className={`lg:hidden border-t border-x-border bg-x-bg/98 backdrop-blur-2xl transition-all duration-300 ease-in-out overflow-hidden ${
+          mobileMenuOpen ? 'max-h-[400px] border-b opacity-100' : 'max-h-0 opacity-0 pointer-events-none'
+        }`}
+      >
+        <div className="px-4 py-4 flex flex-col gap-4">
+          <nav className="flex flex-col gap-1">
+            {NAV_ITEMS.map((item) => (
+              <Link
+                key={item.href}
+                to={item.href}
+                className={`px-4 py-3 text-sm tracking-wider uppercase font-semibold transition-all rounded-lg ${
+                  activeNav === item.href 
+                    ? 'text-x-primary bg-x-primary/10' 
+                    : 'text-x-text-muted hover:text-x-text hover:bg-white/5'
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+          
+          <div className="h-px bg-x-border" />
+          
+          <Link 
+            to="/Fleet" 
+            className="flex items-center justify-center gap-2 bg-x-primary text-white font-bold text-sm tracking-wider uppercase py-3.5 rounded-xl transition-all hover:bg-x-accent hover:text-x-bg active:scale-95"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Rent A Car
+            <RiArrowRightLine size={16} />
+          </Link>
+        </div>
+      </div>
     </header>
   );
 };
