@@ -16,7 +16,7 @@ export default function Main() {
     <>
       <HeroSlider></HeroSlider>
       {/* <BookingSearch></BookingSearch> */}
-      <BrandSlider></BrandSlider>
+      {/* <BrandSlider></BrandSlider> */}
       <FeaturedCars></FeaturedCars>
       <HowItWorks></HowItWorks>
       <WhyChooseUs></WhyChooseUs>

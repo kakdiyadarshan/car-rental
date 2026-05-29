@@ -18,41 +18,69 @@ const BrandCard = ({ brand, carCount }) => {
   };
 
   return (
-    <div className="group relative min-w-[280px] md:min-w-[320px] bg-x-surface border border-x-border rounded-3xl p-8 transition-all duration-500 hover:border-x-primary/40 hover:shadow-premium hover:-translate-y-2">
-      {/* Top accent bar */}
-      <span className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-1 rounded-b-full transition-all duration-500 group-hover:w-32 group-hover:h-1.5" style={{ background: brand.accent }} />
+    <div className="group relative min-w-[300px] md:min-w-[340px] bg-[#111318]/40 backdrop-blur-md border border-white/[0.06] rounded-[32px] p-8 overflow-hidden">
+      {/* Brand-specific Neon Backlight Glow */}
+      <div 
+        className="absolute -top-24 -right-24 w-48 h-48 rounded-full blur-[80px] opacity-0 group-hover:opacity-20 transition-opacity duration-700 pointer-events-none" 
+        style={{ background: brand.accent }} 
+      />
 
-      {/* Logo circle */}
-      <div className="flex justify-center mb-6">
-        <div className="w-20 h-20 rounded-2xl bg-white/[0.03] border border-white/[0.05] flex items-center justify-center transition-all duration-700 group-hover:rotate-[360deg] group-hover:bg-white/[0.05]" style={{ borderColor: brand.accent + '33' }}>
-          <span className="font-bebas text-2xl tracking-[2px] text-white opacity-40 group-hover:opacity-100 transition-opacity">{brand.subtitle}</span>
-        </div>
+      {/* Top accent bar */}
+      <span 
+        className="absolute top-0 left-0 w-full h-[3px] scale-x-0 group-hover:scale-x-100 origin-center transition-transform duration-500" 
+        style={{ background: `linear-gradient(90deg, transparent, ${brand?.accent}, transparent)` }} 
+      />
+
+      {/* Logo wrapper */}
+      <div 
+        className="relative w-24 h-24 rounded-[24px] bg-white/[0.02] border border-white/[0.06] flex items-center justify-center p-5 mb-6 mx-auto transition-all duration-500 group-hover:bg-white/[0.04] group-hover:border-x-primary/20 group-hover:scale-105" 
+        style={{ boxShadow: `inset 0 0 20px rgba(255,255,255,0.02)` }}
+      >
+        <img 
+          src={brand?.logo} 
+          alt={brand?.name} 
+          className="w-14 h-14 object-contain brightness-0 invert opacity-45 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500" 
+        />
       </div>
 
       {/* Info */}
-      <div className="text-center space-y-4">
-        <div className="flex items-center justify-center gap-3">
-          <span className="px-3 py-1 bg-white/[0.03] border border-white/[0.05] rounded-lg text-[0.65rem] font-bold uppercase tracking-widest transition-colors group-hover:text-white" style={{ color: brand.accent, borderColor: brand.accent + '33' }}>
+      <div className="text-center space-y-2">
+        <span className="block text-[0.65rem] tracking-[2px] uppercase text-x-text-muted/60 group-hover:text-x-text-muted transition-colors font-medium">
+          {brand?.subtitle || "Exclusive Maker"}
+        </span>
+        <h3 className="font-bebas text-3xl md:text-4xl text-white tracking-[2px] uppercase leading-none mt-2 mb-1 group-hover:text-x-primary transition-colors">
+          {brand?.name}
+        </h3>
+        <p className="text-x-text-muted text-xs font-dm leading-relaxed italic opacity-75 group-hover:opacity-100 transition-opacity max-w-[240px] mx-auto">
+          "{brand.tagline}"
+        </p>
+
+        {/* Tag & Rating row */}
+        <div className="flex items-center justify-center gap-2.5 pt-3">
+          <span 
+            className="px-2.5 py-0.5 bg-x-primary/10 border border-x-primary/20 rounded-md text-[0.55rem] font-bold uppercase tracking-wider text-x-primary"
+            style={{ color: brand.accent, borderColor: brand.accent + '33', backgroundColor: brand.accent + '11' }}
+          >
             {brand.tag}
           </span>
-          <div className="flex items-center gap-1.5 px-2.5 py-1 bg-white/[0.03] rounded-lg">
-            <RiStarFill size={11} className="text-[#F5A200]" />
-            <span className="text-[0.7rem] font-bold text-white/60">{(brand.rating || 5.0).toFixed(1)}</span>
-          </div>
+          <span className="flex items-center gap-1 px-2 py-0.5 bg-white/[0.03] border border-white/[0.05] rounded-md text-[0.55rem] font-bold text-white/50">
+            <RiStarFill size={10} className="text-x-accent" />
+            {(brand.rating || 5.0).toFixed(1)}
+          </span>
         </div>
-        <h3 className="font-bebas text-3xl text-white tracking-widest uppercase">{brand.name}</h3>
-        <p className="text-x-text-muted text-sm font-dm leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity">{brand.tagline}</p>
       </div>
 
       {/* Footer */}
-      <div className="mt-8 pt-6 border-t border-white/[0.05] flex items-center justify-between">
-        <span className="text-[0.65rem] font-bold uppercase tracking-widest text-x-text-muted">{carCount} Cars Available</span>
+      <div className="mt-8 pt-6 border-t border-white/[0.04] flex items-center justify-between">
+        <div className="flex flex-col text-left">
+          <span className="text-[0.6rem] font-bold uppercase tracking-widest text-x-text-muted/50">Fleet Size</span>
+          <span className="text-xs font-bold text-white font-dm">{carCount} Supercars</span>
+        </div>
         <button 
-          className="flex items-center gap-2 text-white font-bold uppercase tracking-widest text-[0.65rem] py-2 px-4 rounded-lg bg-white/[0.05] border border-white/[0.1] hover:bg-x-primary hover:border-x-primary transition-all active:scale-95" 
+          className="flex items-center gap-2 text-white font-bold uppercase tracking-widest text-[0.65rem] py-2.5 px-4.5 rounded-xl bg-white/[0.04] border border-white/[0.08] hover:bg-x-primary hover:border-x-primary hover:text-white transition-all duration-300 active:scale-95 shadow-sm"
           onClick={handleExplore}
-          style={{ '--accent-color': brand.accent }}
         >
-          Explore <RiArrowRightLine size={14} className="group-hover:translate-x-1 transition-transform" />
+          Explore <RiArrowRightLine size={12} className="group-hover:translate-x-1 transition-transform" />
         </button>
       </div>
     </div>
@@ -69,9 +97,9 @@ const BrandSlider = () => {
 
   const getCardWidth = () => {
     const track = trackRef.current;
-    if (!track) return 320;
+    if (!track) return 340;
     const card = track.querySelector('div'); // Get first child div
-    if (!card) return 320;
+    if (!card) return 340;
     const style = window.getComputedStyle(track);
     const gap = parseInt(style.getPropertyValue('gap')) || 32;
     return card.offsetWidth + gap;
@@ -117,16 +145,25 @@ const BrandSlider = () => {
   if (brandsError) return <div className="py-24 text-center text-red-500 font-bold uppercase tracking-widest bg-x-bg">Error loading brands.</div>;
 
   return (
-    <section className="py-24 bg-x-bg overflow-hidden relative">
-      {/* Decorative element */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-x-primary/5 rounded-full blur-[120px] -translate-y-1/2 -translate-x-1/2" />
+    <section 
+      className="py-32 bg-x-bg overflow-hidden relative"
+      style={{ 
+        backgroundImage: 'radial-gradient(rgba(221, 111, 39, 0.02) 1.5px, transparent 1.5px)', 
+        backgroundSize: '48px 48px' 
+      }}
+    >
+      {/* Luxurious Ambient Glows */}
+      <div className="absolute top-1/4 -left-48 w-[40rem] h-[40rem] bg-x-primary/5 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-48 w-[40rem] h-[40rem] bg-x-accent/3 rounded-full blur-[140px] pointer-events-none" />
       
       <Container className="relative z-10">
-        <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-8 animate-fadeIn">
-          <div className="space-y-4 text-center md:text-left">
-            <span className="block uppercase text-[0.7rem] tracking-[4px] text-x-primary font-bold">Top Manufactures</span>
-            <h2 className="font-bebas text-5xl md:text-6xl text-white tracking-widest uppercase mb-0 leading-none">
-              Explore <span className="text-transparent !stroke-white [-webkit-text-stroke:1px_#fff]">Brands</span>
+        <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8 animate-fadeIn">
+          <div className="space-y-3 text-center md:text-left">
+            <span className="inline-block px-3.5 py-1.5 rounded-full bg-x-primary/10 border border-x-primary/20 text-[0.65rem] tracking-[4px] uppercase font-bold text-x-primary mb-1">
+              Top Manufacturers
+            </span>
+            <h2 className="font-bebas text-5xl md:text-7xl text-white tracking-widest uppercase mb-0 leading-none">
+              Explore <span className="text-transparent !stroke-white [-webkit-text-stroke:1.5px_rgba(255,255,255,0.85)]">Brands</span>
             </h2>
           </div>
 
@@ -135,7 +172,7 @@ const BrandSlider = () => {
               className={`w-14 h-14 rounded-2xl border flex items-center justify-center transition-all duration-300 ${
                 !canPrev 
                   ? 'border-white/5 text-white/10 cursor-not-allowed' 
-                  : 'border-white/10 text-white hover:bg-x-primary hover:border-x-primary hover:shadow-lg'
+                  : 'border-white/10 text-white hover:bg-x-primary hover:border-x-primary hover:shadow-[0_8px_24px_rgba(221,111,39,0.25)] hover:-translate-y-0.5'
               }`}
               onClick={() => scroll(-1)}
               disabled={!canPrev}
@@ -146,7 +183,7 @@ const BrandSlider = () => {
               className={`w-14 h-14 rounded-2xl border flex items-center justify-center transition-all duration-300 ${
                 !canNext 
                   ? 'border-white/5 text-white/10 cursor-not-allowed' 
-                  : 'border-white/10 text-white hover:bg-x-primary hover:border-x-primary hover:shadow-lg'
+                  : 'border-white/10 text-white hover:bg-x-primary hover:border-x-primary hover:shadow-[0_8px_24px_rgba(221,111,39,0.25)] hover:-translate-y-0.5'
               }`}
               onClick={() => scroll(1)}
               disabled={!canNext}
@@ -181,4 +218,4 @@ const BrandSlider = () => {
   );
 };
 
-export default BrandSlider;
+export default BrandSlider;
