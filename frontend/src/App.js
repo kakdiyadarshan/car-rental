@@ -31,6 +31,8 @@ import Feedback from './pages/Feedback';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ResetPassword from './pages/ResetPassword';
+import { Blog } from './pages/Blog';
+import { BlogDetails } from './pages/BlogDetails';
 
 function App() {
   return (
@@ -61,6 +63,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/Feedback" element={<Feedback />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blogdetails/:id" element={<BlogDetails />} />
 
 
         </Routes>
