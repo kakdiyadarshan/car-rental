@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"); */
 
 @tailwind base;
 @tailwind components;
@@ -7,39 +7,42 @@
 /* ─── CSS CUSTOM PROPERTIES (kept for Bootstrap / react-bootstrap overrides) ── */
 :root {
   /* d_style / h_style palette */
-  --x-bg:           #0a0b0f;
-  --x-surface:      #111318;
-  --x-surface2:     #1a1d25;
-  --x-border:       rgba(255, 255, 255, 0.07);
-  --x-border-active:rgba(221, 111, 39, 0.4);
-  --x-text:         #f0ede8;
-  --x-text-muted:   rgba(240, 237, 232, 0.45);
-  --x-primary:      #dd6f27;
+  --x-bg: #0a0b0f;
+  --x-surface: #111318;
+  --x-surface2: #1a1d25;
+  --x-border: rgba(255, 255, 255, 0.07);
+  --x-border-active: rgba(221, 111, 39, 0.4);
+  --x-text: #f0ede8;
+  --x-text-muted: rgba(240, 237, 232, 0.45);
+  --x-primary: #dd6f27;
   --x-primary-glow: rgba(221, 111, 39, 0.2);
-  --x-accent:       #e8c97a;
-  --d-transition:   all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  --x-accent: #e8c97a;
+  --d-transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 
   /* z_styles palette */
-  --x-bg-z:         #0f172a;
-  --x-card:         #1e293b;
-  --x-border-z:     #334155;
-  --x-grey:         #94a3b8;
+  --x-bg-z: #0f172a;
+  --x-card: #1e293b;
+  --x-border-z: #334155;
+  --x-grey: #94a3b8;
   --x-primary-dark: #b84f1c;
-  --x-shadow:       0 14px 30px rgba(0, 0, 0, 0.4);
+  --x-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
 
   /* h_style palette */
-  --bg:             #0a0b0f;
-  --card-bg:        #111318;
-  --accent:         #dd6f27;
-  --accent-hover:   #b34a08;
-  --text-main:      #f0ede8;
-  --text-muted:     rgba(240, 237, 232, 0.45);
-  --border:         rgba(255, 255, 255, 0.07);
-  --radius:         24px;
+  --bg: #0a0b0f;
+  --card-bg: #111318;
+  --accent: #dd6f27;
+  --accent-hover: #b34a08;
+  --text-main: #f0ede8;
+  --text-muted: rgba(240, 237, 232, 0.45);
+  --border: rgba(255, 255, 255, 0.07);
+  --radius: 24px;
 }
 
 @layer base {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     @apply box-border m-0 p-0;
   }
 
@@ -57,9 +60,11 @@
   ::-webkit-scrollbar {
     width: 8px;
   }
+
   ::-webkit-scrollbar-track {
     @apply bg-x-bg;
   }
+
   ::-webkit-scrollbar-thumb {
     @apply bg-white/10 rounded-full hover:bg-x-primary/50 transition-colors;
   }
@@ -67,6 +72,7 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -77,32 +83,48 @@
   .animate-fadeIn {
     animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
+
   .animate-slideUp {
     animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
-  
+
   @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
-  
+
   @keyframes slideUp {
-    from { 
+    from {
       opacity: 0;
       transform: translateY(30px);
     }
-    to { 
+
+    to {
       opacity: 1;
       transform: translateY(0);
     }
   }
 
   @keyframes ticker {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
   }
 
   .shadow-premium {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 5px 15px rgba(0, 0, 0, 0.3);
   }
+}
+
+.font-dm {
+  font-family: "Figtree", sans-serif;
 }

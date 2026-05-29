@@ -8,6 +8,7 @@ import { RiCarWashingLine, RiPhoneLine, RiArrowRightLine } from 'react-icons/ri'
 import '../style/d_style.css';
 import BookingModal from '../components/BookingModal';
 import { useNavigate } from "react-router-dom";
+import Carlist from './Carlist';
 
 export default function Fleet() {
   const [showBookingModal, setShowBookingModal] = useState(false);
@@ -19,6 +20,7 @@ export default function Fleet() {
   };
   return (
     <>
+    {/* <Carlist /> */}
       <FleetContent />
 
       <section className="d_cta_section d_section_padding">
